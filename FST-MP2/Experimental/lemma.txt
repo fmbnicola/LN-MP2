@@ -24,10 +24,4 @@
 0 0 x x
 0 0 y y
 0 0 z z
-0 1 m m
-1 2 e e
-2 3 n n
-3 4 t t
-4 5 e e
-5 6 +ADV eps
-6
+0

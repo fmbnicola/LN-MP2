@@ -1,4 +1,6 @@
 0 0 a a
+0 0 á	á
+0 0 ã	ã
 0 0 b b
 0 0 c c
 0 0 d d
@@ -24,11 +26,4 @@
 0 0 x x
 0 0 y y
 0 0 z z
-0 1 o eps
-1 2 +N eps
-2 3 +mp o
-2 3 +fp a
-2 4 +ms o
-2 4 +fs a
-3 4 eps s
-4
+0

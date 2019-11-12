@@ -1,0 +1,17 @@
+0 1 a a
+1 2 r r
+2 3 +V eps
+3 4 +if eps
+4 5 +1s e
+4 6 +1p e
+4 8 +2p e
+4 9 +2s á
+4 10 +3p ã
+4 11 +3s á
+5 11 eps i
+6 7 eps m
+7 9 eps o
+8 9 eps i
+9 11 eps s
+10 11 eps o
+11
