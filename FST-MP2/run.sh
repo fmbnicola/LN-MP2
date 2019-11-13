@@ -2,178 +2,123 @@
 
 rm -f *.fst *.pdf
 
+# - create folders
+rm -r FINALtransducers
+rm -r AUXtransducers
+rm -r FINALexamples
+rm -r FINALpdf
+rm -r TXTexamples
+rm -r FSTexamples
+mkdir FINALtransducers
+mkdir AUXtransducers
+mkdir FINALexamples
+mkdir FINALpdf
+mkdir TXTexamples
+mkdir FSTexamples
+
 # - Lemma
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lemma.txt | fstarcsort > lemma.fst
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/lemma.txt | fstarcsort > AUXtransducers/lemma.fst
 
 # - Word Classes
 # 1 - Noun
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols noun.txt | fstarcsort > noun.fst
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/noun.txt | fstarcsort > AUXtransducers/noun.fst
 # 2 - Adverb
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols adverb.txt | fstarcsort > adverb.fst
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/adverb.txt | fstarcsort > AUXtransducers/adverb.fst
 # 3 - Verb Indicative Present
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols verbip.txt | fstarcsort > verbip.fst
-# 3 - Verb Indicative Past
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols verbis.txt | fstarcsort > verbis.fst
-# 3 - Verb Indicative Future
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols verbif.txt | fstarcsort > verbif.fst
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/verbip.txt | fstarcsort > AUXtransducers/verbip.fst
+# 4 - Verb Indicative Past
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/verbis.txt | fstarcsort > AUXtransducers/verbis.fst
+# 5 - Verb Indicative Future
+fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols INItransducers/verbif.txt | fstarcsort > AUXtransducers/verbif.fst
 
 # a. Concantenate
 # 1 - Noun
-fstconcat lemma.fst noun.fst > lemma2noun.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/noun.fst > FINALtransducers/lemma2noun.fst
 echo ""
-fstrmepsilon lemma2noun.fst lemma2noun.fst
+fstrmepsilon FINALtransducers/lemma2noun.fst FINALtransducers/lemma2noun.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2noun.fst | dot -Tpdf > lemma2noun.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2noun.fst | dot -Tpdf > FINALpdf/lemma2noun.pdf
 
 # 2 - Adverb
-fstconcat lemma.fst adverb.fst > lemma2adverb.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/adverb.fst > FINALtransducers/lemma2adverb.fst
 echo ""
-fstrmepsilon lemma2adverb.fst lemma2adverb.fst
+fstrmepsilon FINALtransducers/lemma2adverb.fst FINALtransducers/lemma2adverb.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2adverb.fst | dot -Tpdf > lemma2adverb.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2adverb.fst | dot -Tpdf > FINALpdf/lemma2adverb.pdf
 
 # 3 - Verb Indicative Present
-fstconcat lemma.fst verbip.fst > lemma2verbip.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/verbip.fst > FINALtransducers/lemma2verbip.fst
 echo ""
-fstrmepsilon lemma2verbip.fst lemma2verbip.fst
+fstrmepsilon FINALtransducers/lemma2verbip.fst FINALtransducers/lemma2verbip.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbip.fst | dot -Tpdf > lemma2verbip.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2verbip.fst | dot -Tpdf > FINALpdf/lemma2verbip.pdf
 
 # 4 - Verb Indicative Past
-fstconcat lemma.fst verbis.fst > lemma2verbis.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/verbis.fst > FINALtransducers/lemma2verbis.fst
 echo ""
-fstrmepsilon lemma2verbis.fst lemma2verbis.fst
+fstrmepsilon FINALtransducers/lemma2verbis.fst FINALtransducers/lemma2verbis.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbis.fst | dot -Tpdf > lemma2verbis.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2verbis.fst | dot -Tpdf > FINALpdf/lemma2verbis.pdf
 
 # 5 - Verb Indicative Future
-fstconcat lemma.fst verbif.fst > lemma2verbif.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/verbif.fst > FINALtransducers/lemma2verbif.fst
 echo ""
-fstrmepsilon lemma2verbif.fst lemma2verbif.fst
+fstrmepsilon FINALtransducers/lemma2verbif.fst FINALtransducers/lemma2verbif.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verbif.fst | dot -Tpdf > lemma2verbif.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2verbif.fst | dot -Tpdf > FINALpdf/lemma2verbif.pdf
 
 # b. Unite
 # 1 - Verbs
-fstunion verbis.fst verbip.fst > verbips.fst
+fstunion AUXtransducers/verbis.fst AUXtransducers/verbip.fst > AUXtransducers/verbips.fst
 #fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait verbips.fst | dot -Tpdf > verbips.pdf
 
-fstunion verbif.fst verbips.fst > verb.fst
+fstunion AUXtransducers/verbif.fst AUXtransducers/verbips.fst > AUXtransducers/verb.fst
 #fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait verb.fst | dot -Tpdf > verb.pdf
 
-fstconcat lemma.fst verb.fst > lemma2verb.fst
-fstrmepsilon lemma2verb.fst lemma2verb.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/verb.fst > FINALtransducers/lemma2verb.fst
+fstrmepsilon FINALtransducers/lemma2verb.fst FINALtransducers/lemma2verb.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2verb.fst | dot -Tpdf > lemma2verb.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2verb.fst | dot -Tpdf > FINALpdf/lemma2verb.pdf
 
 # 2 - Lemma to Words
-fstunion verb.fst adverb.fst > verb_adverb.fst
+fstunion AUXtransducers/verb.fst AUXtransducers/adverb.fst > AUXtransducers/verb_adverb.fst
 #fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait verbips.fst | dot -Tpdf > verbips.pdf
 
-fstunion verb_adverb.fst noun.fst > word.fst
+fstunion AUXtransducers/verb_adverb.fst AUXtransducers/noun.fst > AUXtransducers/word.fst
 #fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait verb.fst | dot -Tpdf > verb.pdf
 
-fstconcat lemma.fst word.fst > lemma2word.fst
-fstrmepsilon lemma2word.fst lemma2word.fst
+fstconcat AUXtransducers/lemma.fst AUXtransducers/word.fst > FINALtransducers/lemma2word.fst
+fstrmepsilon FINALtransducers/lemma2word.fst FINALtransducers/lemma2word.fst
 echo " "
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lemma2word.fst | dot -Tpdf > lemma2word.pdf
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/lemma2word.fst | dot -Tpdf > FINALpdf/lemma2word.pdf
 
 # 3 - Word to Lemma
-fstinvert lemma2word.fst word2lemma.fst
-fstrmepsilon word2lemma.fst word2lemma.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait word2lemma.fst | dot -Tpdf > word2lemma.pdf
+fstinvert FINALtransducers/lemma2word.fst FINALtransducers/word2lemma.fst
+fstrmepsilon FINALtransducers/word2lemma.fst FINALtransducers/word2lemma.fst
+fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait FINALtransducers/word2lemma.fst | dot -Tpdf > FINALpdf/word2lemma.pdf
 
-# - Test 1
+# TESTING
 
-# 1 - Noun
-#aluna
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols aluna.txt | fstarcsort > aluna.fst
-#fstrmepsilon aluna.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluna.fst | dot -Tpdf  > aluna.pdf
-#echo ""
-#fstcompose aluna.fst lemma2noun.fst > aluna_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluna_c.fst | dot -Tpdf > aluna_c.pdf
+array=(  "cantar+V+is+1s" "barco+N+fp" "rapidamente" "cantar+V+ip+1s" "cantar+V+ip+2s" "cantar+V+ip+3s" "cantar+V+ip+1p" "cantar+V+ip+2p" "cantar+V+ip+3p" "cantar+V+is+2s" "cantar+V+is+3s" "cantar+V+is+1p" "cantar+V+is+2p" "cantar+V+is+3p"  "cantar+V+if+1s" "cantar+V+if+2s" "cantar+V+if+3s" "cantar+V+if+1p" "cantar+V+if+2p" "cantar+V+if+3p" "saltar+V+if+2p" "constantemente+ADV" "tubo"       "rema")
+array2=( "lemma2verb"     "lemma2word" "word2lemma"  "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"      "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2verb"     "lemma2word"     "lemma2word"         "word2lemma" "word2lemma" )
+array3=( "test1"          "test2"      "test3"       "test4"          "test5"          "test6"          "test7"          "test8"          "test9"          "test10"         "test11"         "test12"         "test13"         "test14"          "test15"         "test16"         "test17"         "test18"         "test20"         "test21"         "test22"         "test23"             "test24"     "test25"     )
 
-# 2 - Adverb
-#infelizmente
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols infelizmente.txt | fstarcsort > infelizmente.fst
-#fstrmepsilon infelizmente.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait infelizmente.fst | dot -Tpdf  > infelizmente.pdf
-#echo ""
-#fstcompose infelizmente.fst lemma2adverb.fst > infelizmente_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait infelizmente_c.fst | dot -Tpdf > infelizmente_c.pdf
+for ((i=0;i<${#array[@]};++i)); do
 
-# 3 - Verb Indicative Present
-#lavais
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lavais.txt | fstarcsort > lavais.fst
-#fstrmepsilon lavais.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavais.fst | dot -Tpdf  > lavais.pdf
-#echo ""
-#fstcompose lavais.fst lemma2verbip.fst > lavais_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavais_c.fst | dot -Tpdf > lavais_c.pdf
+    printf "%s + %s -> %s\n" "${array[i]}" "${array2[i]}" "${array3[i]}"
 
-# 4 - Verb Indicative Past
-#lavei
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lavei.txt | fstarcsort > lavei.fst
-#fstrmepsilon lavei.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavei.fst | dot -Tpdf  > lavei.pdf
-#echo ""
-#fstcompose lavei.fst lemma2verbis.fst > lavei_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavei_c.fst | dot -Tpdf > lavei_c.pdf
+    #FIXME (keep files in folder and remove this line before submission)
+    python3 word2fst.py -s syms.txt "${array[i]}" > "TXTexamples/""${array[i]}"".txt"
 
-# 5 - Verb Indicative Future
-#lavarao
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lavarao.txt | fstarcsort > lavarao.fst
-#fstrmepsilon lavarao.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavarao.fst | dot -Tpdf  > lavarao.pdf
-#echo ""
-#fstcompose lavarao.fst lemma2verbif.fst > lavarao_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavarao_c.fst | dot -Tpdf > lavarao_c.pdf
+    #generate example.fst
+    fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols "TXTexamples/""${array[i]}"".txt" | fstarcsort > "FSTexamples/""${array3[i]}"".fst"
 
-# - Test 2
+    #generate example.pdf
+    fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait "FSTexamples/""${array3[i]}"".fst" | dot -Tpdf > "FINALexamples/""${array3[i]}"".pdf"
 
-# 1 - Noun
-#aluna
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols aluna.txt | fstarcsort > aluna.fst
-#fstrmepsilon aluna.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluna.fst | dot -Tpdf  > aluna.pdf
-#echo ""
-#fstcompose aluna.fst lemma2word.fst > aluna_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluna_c.fst | dot -Tpdf > aluna_c.pdf
+    #generate example_converter.fst
+    fstcompose "FSTexamples/""${array3[i]}"".fst" "FINALtransducers/""${array2[i]}"".fst" > "FSTexamples/""${array3[i]}""_""${array2[i]}"".fst"
 
-# 2 - Adverb
-#infelizmente
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols infelizmente.txt | fstarcsort > infelizmente.fst
-#fstrmepsilon infelizmente.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait infelizmente.fst | dot -Tpdf  > infelizmente.pdf
-#echo ""
-#fstcompose infelizmente.fst lemma2word.fst > infelizmente_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait infelizmente_c.fst | dot -Tpdf > infelizmente_c.pdf
-
-# 3 - Verb Indicative Present
-#lavais
-#fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lavais.txt | fstarcsort > lavais.fst
-#fstrmepsilon lavais.fst | fsttopsort | fstprint --isymbols=syms.txt
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavais.fst | dot -Tpdf  > lavais.pdf
-#echo ""
-#fstcompose lavais.fst lemma2word.fst > lavais_c.fst
-#fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavais_c.fst | dot -Tpdf > lavais_c.pdf
-
-# - Test 3
-
-# 1 - Noun
-#alunas
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols aluno_N_fp.txt | fstarcsort > aluno_N_fp.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluno_N_fp.fst | dot -Tpdf  > aluno_N_fp.pdf
-echo ""
-fstcompose aluno_N_fp.fst word2lemma.fst > aluno_N_fp_c.fst
-fstprint --isymbols=syms.txt aluno_N_fp_c.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait aluno_N_fp_c.fst | dot -Tpdf > aluno_N_fp_c.pdf
-
-#lavamos
-fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols lavar_V_pi_1p.txt | fstarcsort > lavar_V_pi_1p.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavar_V_pi_1p.fst | dot -Tpdf  > lavar_V_pi_1p.pdf
-echo ""
-fstcompose lavar_V_pi_1p.fst word2lemma.fst > lavar_V_pi_1p_c.fst
-fstprint --isymbols=syms.txt lavar_V_pi_1p_c.fst
-fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait lavar_V_pi_1p_c.fst | dot -Tpdf > lavar_V_pi_1p_c.pdf
+    #generate example_converter.pdf
+    fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait "FSTexamples/""${array3[i]}""_""${array2[i]}"".fst" | dot -Tpdf > "FINALexamples/""${array3[i]}""_""${array2[i]}"".pdf"
+done

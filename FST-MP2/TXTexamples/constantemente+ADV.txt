@@ -1,0 +1,16 @@
+0 1 c c
+1 2 o o
+2 3 n n
+3 4 s s
+4 5 t t
+5 6 a a
+6 7 n n
+7 8 t t
+8 9 e e
+9 10 m m
+10 11 e e
+11 12 n n
+12 13 t t
+13 14 e e
+14 15 +ADV +ADV
+15
