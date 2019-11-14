@@ -91,22 +91,22 @@ c=0
 test="test"
 for ((i=0;i<${#array[@]};++i)); do
 
+  # counter and file name (test1, test2 ... and so on)
+  ((c++))
+  name=${test}${c}
+
+  #FIXME (keep files in folder and remove this line before submission)
+  #python3 word2fst.py -s syms.txt "${array[i]}" > "TXTexamples/""${array[i]}"".txt"
+
+  #generate example.fst
+  fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols "TXTexamples/""${array[i]}"".txt" | fstarcsort > "FSTexamples/""${name}"".fst"
+
+  #generate example.pdf
+  fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait "FSTexamples/""${name}"".fst" | dot -Tpdf > "FINALexamples/""${name}"".pdf"
+
   for ((j=0;j<${#array2[@]};++j)); do
 
-      # counter and file name (test1, test2 ... and so on)
-      ((c++))
-      name=${test}${c}
-
-      printf "%s + %s -> %s\n" "${array[i]}" "${array2[j]}" "${name}"
-
-      #FIXME (keep files in folder and remove this line before submission)
-      #python3 word2fst.py -s syms.txt "${array[i]}" > "TXTexamples/""${array[i]}"".txt"
-
-      #generate example.fst
-      fstcompile --isymbols=syms.txt --osymbols=syms.txt --keep_isymbols --keep_osymbols "TXTexamples/""${array[i]}"".txt" | fstarcsort > "FSTexamples/""${name}"".fst"
-
-      #generate example.pdf
-      fstdraw --isymbols=syms.txt --osymbols=syms.txt --portrait "FSTexamples/""${name}"".fst" | dot -Tpdf > "FINALexamples/""${name}"".pdf"
+      printf "%s + %s -> %s\n" "${array[i]}" "${array2[j]}" "${name}""_""${array2[j]}"
 
       #generate example_converter.fst
       fstcompose "FSTexamples/""${name}"".fst" "FINALtransducers/""${array2[j]}"".fst" > "FSTexamples/""${name}""_""${array2[j]}"".fst"
